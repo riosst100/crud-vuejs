@@ -1,0 +1,64 @@
+:root {
+    --md-sys-color-primary: #3DAE2F;
+    
+    --md-outlined-text-field-outline-color: #CDD2D5;
+    --md-outlined-text-field-label-text-color: #CDD2D5;
+    --md-outlined-text-field-input-text-placeholder-color: #CDD2D5;
+    --md-outlined-text-field-focus-label-text-color: #4B5258;
+    --md-outlined-text-field-focus-outline-color: #CDD2D5;
+    --md-outlined-text-field-focus-outline-width: 1px;
+    --md-outlined-text-field-hover-label-text-color: #CDD2D5;
+    --md-outlined-text-field-hover-outline-color: #CDD2D5;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Roboto', system-ui, sans-serif;
+  font-size: 14px;
+  color: #212426;
+  background-color: #f4f5f6;
+}
+.title {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+/* Button */
+.cancel-danger-btn {
+  --md-filled-button-container-color: transparent;
+  --md-filled-button-label-text-color: #FF3553;
+  --md-filled-button-hover-label-text-color: #FF3553;
+  --md-filled-button-focus-label-text-color: #FF3553;
+  --md-filled-button-pressed-label-text-color: #FF3553;
+  --md-filled-button-container-shape: 999px;
+  border: 1px solid #FF3553;
+}
+.danger-btn {
+  --md-filled-button-container-color: #FF3553;
+  --md-filled-button-label-text-color: #ffffff;
+  --md-filled-button-container-shape: 999px;
+}
+/* Dialog */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: white;
+  padding-bottom: 5px;
+}
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 5px;
+  gap: 0px;
+  background-color: white;
+}
+.dialog-actions {
+  background-color: white;
+  align-items: center;
+}
