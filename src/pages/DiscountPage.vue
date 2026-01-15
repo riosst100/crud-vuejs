@@ -7,11 +7,19 @@
     import DiscountDialog from '@/components/DiscountDialog.vue'
     import DiscountDeleteDialog from '@/components/DiscountDeleteDialog.vue'
 
-    const dialogOpen = ref(false)
-    const editDiscount = ref<string[]>([])
+    interface Diskon {
+        _id: string
+        name: string
+        type: 'percent' | 'rupiah'
+        value: number
+        createdAt: string
+    }
 
-    const openDialog = (diskon: string[]) => {
-        editDiscount.value = diskon
+    const dialogOpen = ref(false)
+    const editDiscount = ref<Diskon | null>(null)
+
+    const openDialog = (diskon?: Diskon) => {
+        editDiscount.value = diskon ?? null
         dialogOpen.value = true
     }
 
@@ -26,7 +34,7 @@
     const showSnackbars = ref(false)
     const snackbarsMessage = ref('')
 
-    const discounts = ref<Discount[]>([])
+    const discounts = ref<Diskon[]>([])
     const selectedIds = ref<string[]>([])
 
     // get list diskon
@@ -55,7 +63,7 @@
         }
 
         if (selectedIds.value.length) {
-            deleteDiscountId.value = selectedIds.value[0]
+            deleteDiscountId.value = selectedIds.value[0] ?? ''
         }
 
         dialogOpen.value = false
@@ -94,7 +102,7 @@
         } catch (err) {
             console.error('Gagal menghapus diskon', err)
         } finally {
-            editDiscount.value = []
+            editDiscount.value = null
             deleteDialogOpen.value = false
             deleteDiscountId.value = ''
             deleteDiscountName.value = ''
@@ -112,15 +120,13 @@
 
     const existingNames = computed(() =>
         sortedDiscounts.value
-            .filter(d => d._id !== editDiscount?._id)
-            .map(d => d.name.toLowerCase().trim())
+            .filter((d: Diskon) => d._id !== editDiscount.value?._id)
+            .map((d: Diskon) => d.name.toLowerCase().trim())
     )
 
     const filteredDiscounts = computed(() => {
         const keyword = search.value.toLowerCase()
-
-        return discounts.value.filter(d =>
-            typeof d?.name === 'string' &&
+        return discounts.value.filter((d: Diskon) =>
             d.name.toLowerCase().includes(keyword)
         )
     })
@@ -138,8 +144,8 @@
 
     const toggleAll = (checked: boolean) => {
         selectedIds.value = checked
-            ? filteredDiscounts.value.map(d => d._id)
-            : []
+            ? filteredDiscounts.value.map((d) => d._id)
+                : []
     }
 
     const handleSaved = (name: string, isEdit: boolean) => {

@@ -43,7 +43,9 @@
                     label="API URL crudcrud.com"
                     placeholder="https://crudcrud.com/api/.../diskon"
                     :value="draftApiUrl"
-                    @input="e => draftApiUrl = e.target.value"
+                    @input="(e: Event) => {
+                        draftApiUrl = (e.target as HTMLInputElement).value
+                    }"
                 />
                 <md-filled-button class="apply-btn" @click="apply">
                     Terapkan

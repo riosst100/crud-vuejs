@@ -6,7 +6,9 @@
     interface Diskon {
         _id?: string
         name: string
-        percent: number
+        type: 'percent' | 'rupiah'
+        value: number
+        createdAt?: string
     }
 
     const props = defineProps<{
@@ -16,7 +18,11 @@
         existingNames: string[]
     }>()
 
-    const emit = defineEmits(['close', 'saved'])
+    const emit = defineEmits<{
+        (e: 'close'): void
+        (e: 'saved', name: string, isEdit: boolean): void
+        (e: 'delete', id: string, name: string): void
+    }>()
 
     const name = ref('')
     const value = ref<number | null>(null)
@@ -81,7 +87,7 @@
             body: JSON.stringify(payload)
         })
 
-        emit('saved', name.value, isEdit)
+        emit('saved', name.value, isEdit.value)
         emit('close')
         reset()
     }
@@ -171,7 +177,11 @@
             </div>
         </div>
         <div slot="actions" class="dialog-actions">
-            <md-text-button class="delete-btn" v-if="isEdit" @click="emit('delete', props.editDiscount._id, props.editDiscount.name)">
+            <md-text-button
+                class="delete-btn"
+                v-if="isEdit && props.editDiscount"
+                @click="emit('delete', props.editDiscount._id!, props.editDiscount.name)"
+            >
                 Hapus
             </md-text-button>
             <md-filled-button :class="{ saveEditBtn: isEdit }" class="save-btn" @click="save">Simpan</md-filled-button>

@@ -35,16 +35,20 @@ const tableData = computed(() => {
   return props.discounts
 })
 
-const newestId = computed(() => {
-  if (!tableData.value.length) return null
+const newestId = computed<string | null>(() => {
+  const data = tableData.value
+  if (data.length === 0) return null
 
-  return [...tableData.value]
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() -
-        new Date(a.createdAt).getTime()
-    )[0]._id
+  const sorted = [...data].sort(
+    (a, b) =>
+      new Date(b.createdAt).getTime() -
+      new Date(a.createdAt).getTime()
+  )
+
+  const newest = sorted[0]
+  return newest ? newest._id : null
 })
+
 
 const formatValue = (d: any) =>
   d.value == null
@@ -102,7 +106,7 @@ const paginatedDiscounts = computed(() => {
                     </td>
                     <td>
                         {{ d.name }}
-                        <span v-if="d._id === newestId" class="badge">baru</span>
+                        <span v-if="newestId && d._id === newestId" class="badge">baru</span>
                     </td>
                     <td>{{ formatValue(d) }}</td>
                     <td class="action-cell">
