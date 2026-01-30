@@ -7,6 +7,6 @@ Website: https://test-fe-rio-susanto.vercel.app/
 <br />
 <p>Masukan API Endpoint dari crudcrud.com kesini:</p>
 
-<img width="80%" alt="image" src="https://github.com/user-attachments/assets/5b561575-eb6b-4960-b60d-ce1dcda7ef16" />
+<img width="50%" alt="image" src="https://github.com/user-attachments/assets/5b561575-eb6b-4960-b60d-ce1dcda7ef16" />
 
 Misal: https://crudcrud.com/api/62ba6f974d4c41b587b60353936f4e09/diskon (wajib ada diskon atau apapun itu)
